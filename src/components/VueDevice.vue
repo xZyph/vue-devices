@@ -20,7 +20,7 @@
 <script lang="ts" setup>
 import { defineProps, withDefaults } from 'vue';
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
   device?: 'iphone-14'
   | 'google-pixel-6-pro'
   | 'iphone-x'
@@ -54,7 +54,7 @@ const props = withDefaults(defineProps<{
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 @import 'devices.css/dist/devices.min.css';
 
 .device-container {
@@ -68,14 +68,14 @@ const props = withDefaults(defineProps<{
   padding-bottom: 25px;
   overflow: scroll;
 
-  /* Hide scrollbar for Chrome, Safari, and Opera */
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
   /* Hide scrollbar for IE, Edge, and Firefox */
-  -ms-overflow-style: none; // IE and Edge
-  scrollbar-width: none; //Firefox
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for Chrome, Safari, and Opera */
+.device-screen::-webkit-scrollbar {
+  display: none;
 }
 
 .device-container .device-wrapper {

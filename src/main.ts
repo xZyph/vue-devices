@@ -1,10 +1,8 @@
-import { App } from 'vue';
-import VueDevice from './components/VueDevice.vue';
+import { App } from 'vue'
+import VueDevice from './components/VueDevice.vue'
 
-export default {
-  install(app: App) {
-    app.component('VueDevice', VueDevice);
-  },
-};
+const install = (app: App): void => {
+  app.component('VueDevice', VueDevice)
+}
 
-export { VueDevice };
+export { install, VueDevice }

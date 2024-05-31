@@ -1,10 +1,10 @@
 {
   "name": "vue-devices",
   "private": false,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/vue-devices.umd.js",
   "module": "dist/vue-devices.esm.js",
-  "types": "types/index.d.ts",
+  "types": "dist/types/main.d.ts",
   "type": "module",
   "author": "Marius Mikelsen <marius.mikelsen@gmail.com>",
   "license": "MIT",
