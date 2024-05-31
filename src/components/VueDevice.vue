@@ -54,7 +54,7 @@ withDefaults(defineProps<{
 })
 </script>
 
-<style scoped>
+<style>
 @import 'devices.css/dist/devices.min.css';
 
 .device-container {
