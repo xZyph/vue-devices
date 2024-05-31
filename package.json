@@ -25,7 +25,7 @@
   "homepage": "https://github.com/xzyph/vue-devices#readme",
   "scripts": {
     "tsc": "vue-tsc",
-    "build": "vue-tsc && vite build",
+    "build": "vite build && vue-tsc",
     "lint": "eslint .",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,vue,html,css,scss,json,md}\""
   },
