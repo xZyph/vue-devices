@@ -13,7 +13,8 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/main.ts'),
       name: 'VueDevices',
-      fileName: (format) => `vue-devices.${format}.js`
+      fileName: (format) => `vue-devices.${format}.js`,
+      formats: ['es', 'umd']
     },
     rollupOptions: {
       external: ['vue'],

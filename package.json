@@ -33,6 +33,9 @@
     "devices.css": "^0.2.0",
     "vue": "^3.4.21"
   },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
   "devDependencies": {
     "@types/node": "^20.12.13",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
