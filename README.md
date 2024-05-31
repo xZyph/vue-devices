@@ -83,4 +83,5 @@ Marius Mikelsen - marius.mikelsen@gmail.com
 
 ## Links
 [Repository](https://github.com/xZyph/vue-devices)
+
 [Issues](https://github.com/xZyph/vue-devices/issues)
