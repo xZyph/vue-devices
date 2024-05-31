@@ -45,12 +45,12 @@ withDefaults(defineProps<{
 }>(), {
   device: 'iphone-14',
   orientation: 'portrait',
-  showStripe: true,
-  showHeader: true,
-  showSensors: true,
-  showBtns: true,
-  showPower: true,
-  showHome: true,
+  showStripe: false,
+  showHeader: false,
+  showSensors: false,
+  showBtns: false,
+  showPower: false,
+  showHome: false,
 })
 </script>
 
