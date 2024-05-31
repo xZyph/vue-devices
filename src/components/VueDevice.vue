@@ -1,25 +1,88 @@
 <template>
-  <div :class="`device ${type}`">
-    <div class="screen">
-      <slot></slot>
+  <div class="device-container">
+    <div
+      :class="['device', `device-${device}`, { 'device-portrait': orientation === 'portrait', 'device-landscape': orientation === 'landscape' }]">
+      <div class="device-frame">
+        <div class="device-screen">
+          <slot></slot>
+        </div>
+      </div>
+      <div v-if="showStripe" class="device-stripe"></div>
+      <div v-if="showHeader" class="device-header"></div>
+      <div v-if="showSensors" class="device-sensors"></div>
+      <div v-if="showBtns" class="device-btns"></div>
+      <div v-if="showPower" class="device-power"></div>
+      <div v-if="showHome" class="device-home"></div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import 'devices.css/dist/devices.min.css';
+<script lang="ts" setup>
+import { defineProps, withDefaults } from 'vue';
 
-defineProps<{
-  type: string;
-}>();
+const props = withDefaults(defineProps<{
+  device?: 'iphone-14'
+  | 'google-pixel-6-pro'
+  | 'iphone-x'
+  | 'macbook-pro'
+  | 'ipad'
+  | 'surface-pro'
+  | 'galaxy-s8'
+  | 'nexus-4'
+  | 'nexus-5'
+  | 'nexus-6'
+  | 'ipad-pro-12-9'
+  | 'ipad-pro-10-5'
+  | 'ipad-pro-9-7',
+  orientation?: 'portrait' | 'landscape',
+  color?: string,
+  showStripe?: boolean,
+  showHeader?: boolean,
+  showSensors?: boolean,
+  showBtns?: boolean,
+  showPower?: boolean,
+  showHome?: boolean,
+}>(), {
+  device: 'iphone-14',
+  orientation: 'portrait',
+  showStripe: true,
+  showHeader: true,
+  showSensors: true,
+  showBtns: true,
+  showPower: true,
+  showHome: true,
+})
 </script>
 
-<style scoped>
-.device {
-  margin: 0 auto;
+<style lang="scss" scoped>
+@import 'devices.css/dist/devices.min.css';
+
+.device-container {
+  display: flex;
+  justify-content: center;
 }
 
-.screen {
-  overflow: hidden;
+.device-screen {
+  background: #fff !important;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  overflow: scroll;
+
+  /* Hide scrollbar for Chrome, Safari, and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge, and Firefox */
+  -ms-overflow-style: none; // IE and Edge
+  scrollbar-width: none; //Firefox
+}
+
+.device-container .device-wrapper {
+  position: relative;
+}
+
+.device-content {
+  padding: 20px;
 }
 </style>
