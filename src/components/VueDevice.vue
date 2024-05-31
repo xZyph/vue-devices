@@ -54,9 +54,7 @@ withDefaults(defineProps<{
 })
 </script>
 
-<style>
-@import 'devices.css/dist/devices.min.css';
-
+<style scoped>
 .device-container {
   display: flex;
   justify-content: center;

@@ -1,14 +1,23 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { resolve, dirname } from 'path'
-import { fileURLToPath } from 'url'
-
-// Convert import.meta.url to a file path
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import { createStyleImportPlugin } from 'vite-plugin-style-import';
+import { resolve } from 'path';
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    createStyleImportPlugin({
+      libs: [
+        {
+          libraryName: 'vue-devices',
+          esModule: true,
+          resolveStyle: () => {
+            return 'vue-devices/dist/style.css';
+          },
+        },
+      ],
+    }),
+  ],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/main.ts'),
@@ -26,4 +35,4 @@ export default defineConfig({
       }
     }
   }
-})
+});
