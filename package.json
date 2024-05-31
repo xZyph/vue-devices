@@ -1,7 +1,7 @@
 {
   "name": "vue-devices",
   "private": false,
-  "version": "1.0.11",
+  "version": "1.0.12",
   "main": "dist/vue-devices.umd.js",
   "module": "dist/vue-devices.es.js",
   "types": "dist/types/main.d.ts",
@@ -40,7 +40,6 @@
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "@vitejs/plugin-vue": "^5.0.4",
-    "consola": "^3.2.3",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
@@ -48,7 +47,6 @@
     "prettier": "^3.2.5",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
-    "vite-plugin-style-import": "^2.0.0",
     "vue-tsc": "^2.0.6"
   }
 }

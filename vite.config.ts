@@ -1,23 +1,9 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import { createStyleImportPlugin } from 'vite-plugin-style-import';
 import { resolve } from 'path';
 
 export default defineConfig({
-  plugins: [
-    vue(),
-    createStyleImportPlugin({
-      libs: [
-        {
-          libraryName: 'vue-devices',
-          esModule: true,
-          resolveStyle: () => {
-            return 'vue-devices/dist/style.css';
-          },
-        },
-      ],
-    }),
-  ],
+  plugins: [vue()],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/main.ts'),
