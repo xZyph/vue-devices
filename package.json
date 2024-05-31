@@ -1,9 +1,9 @@
 {
   "name": "vue-devices",
   "private": false,
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "dist/vue-devices.umd.js",
-  "module": "dist/vue-devices.esm.js",
+  "module": "dist/vue-devices.es.js",
   "types": "dist/types/main.d.ts",
   "type": "module",
   "author": "Marius Mikelsen <marius.mikelsen@gmail.com>",
