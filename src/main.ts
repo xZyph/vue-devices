@@ -5,4 +5,8 @@ const install = (app: App): void => {
   app.component('VueDevice', VueDevice)
 }
 
-export default { install, VueDevice }
+export { install, VueDevice }
+
+export default {
+  install
+}
