@@ -1,7 +1,7 @@
 {
   "name": "vue-devices",
   "private": false,
-  "version": "1.0.7",
+  "version": "1.0.8",
   "main": "dist/vue-devices.umd.js",
   "module": "dist/vue-devices.es.js",
   "types": "dist/types/main.d.ts",
