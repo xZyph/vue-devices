@@ -1,41 +1,41 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import VueDevice, { DeviceType } from '../src/components/VueDevice/VueDevice.vue'
-import MMSMessage from './components/MMSMessage.vue'
+import { computed, ref, watch } from 'vue';
+import VueDevice from '../src/components/VueDevice/VueDevice.vue';
+import { deviceOptions, type DeviceType } from '../src/components/VueDevice/DeviceOptions';
+import MMSMessage from './components/MMSMessage.vue';
 
-const devices = [
-    'apple-watch-s8',
-    'apple-watch-ultra',
-    'galaxy-s8',
-    'google-pixel-2-xl',
-    'google-pixel-6-pro',
-    'google-pixel',
-    'homepod',
-    'imac-pro',
-    'imac',
-    'ipad-pro-2017',
-    'ipad-pro',
-    'iphone-14-pro',
-    'iphone-14',
-    'iphone-8',
-    'iphone-x',
-    'macbook-pro-2018',
-    'macbook-pro',
-    'macbook',
-    'pro-display-xdr',
-    'surface-book',
-    'surface-pro-2017',
-    'surface-studio',
-]
+const devices = Object.keys(deviceOptions) as DeviceType[];
 
-const selectedDevice = ref<DeviceType>('iphone-x')
-const orientation = ref<'portrait' | 'landscape'>('portrait')
-const showBtns = ref(true)
-const showHome = ref(true)
-const showSensors = ref(true)
-const showStripe = ref(true)
-const showPower = ref(true)
-const showHeader = ref(true)
+const selectedDevice = ref<DeviceType>('iphone-x');
+const orientation = ref<'portrait' | 'landscape'>('portrait');
+const showBtns = ref(true);
+const showHome = ref(true);
+const showSensors = ref(true);
+const showStripe = ref(true);
+const showPower = ref(true);
+const showHeader = ref(true);
+
+const showBtnsOption = ref(true);
+const showHomeOption = ref(true);
+const showSensorsOption = ref(true);
+const showStripeOption = ref(true);
+const showPowerOption = ref(true);
+const showHeaderOption = ref(true);
+
+const deviceConfig = computed(() => deviceOptions[selectedDevice.value]);
+
+watch(selectedDevice, (newValue: DeviceType) => {
+    const options = deviceOptions[newValue];
+    if (options) {
+        showBtnsOption.value = options.options.includes('showBtns');
+        showHomeOption.value = options.options.includes('showHome');
+        showSensorsOption.value = options.options.includes('showSensors');
+        showStripeOption.value = options.options.includes('showStripe');
+        showPowerOption.value = options.options.includes('showPower');
+        showHeaderOption.value = options.options.includes('showHeader');
+    }
+});
+
 </script>
 
 <template>
@@ -76,18 +76,23 @@ const showHeader = ref(true)
                     <div class="flex flex-col gap-3">
                         <h2 class="text-lg">Options</h2>
                         <div class="grid grid-cols-3 gap-3 pl-4">
-                            <label class="flex items-center"><input type="checkbox" v-model="showBtns" class="mr-2" />
+                            <label v-if="showBtnsOption" class="flex items-center"><input type="checkbox"
+                                    v-model="showBtns" class="mr-2" />
                                 Buttons</label>
-                            <label class="flex items-center"><input type="checkbox" v-model="showHome" class="mr-2" />
+                            <label v-if="showHomeOption" class="flex items-center"><input type="checkbox"
+                                    v-model="showHome" class="mr-2" />
                                 Home</label>
-                            <label class="flex items-center"><input type="checkbox" v-model="showSensors"
-                                    class="mr-2" />
+                            <label v-if="showSensorsOption" class="flex items-center"><input type="checkbox"
+                                    v-model="showSensors" class="mr-2" />
                                 Sensors</label>
-                            <label class="flex items-center"><input type="checkbox" v-model="showStripe" class="mr-2" />
+                            <label v-if="showStripeOption" class="flex items-center"><input type="checkbox"
+                                    v-model="showStripe" class="mr-2" />
                                 Stripe</label>
-                            <label class="flex items-center"><input type="checkbox" v-model="showPower" class="mr-2" />
+                            <label v-if="showPowerOption" class="flex items-center"><input type="checkbox"
+                                    v-model="showPower" class="mr-2" />
                                 Power</label>
-                            <label class="flex items-center"><input type="checkbox" v-model="showHeader" class="mr-2" />
+                            <label v-if="showHeaderOption" class="flex items-center"><input type="checkbox"
+                                    v-model="showHeader" class="mr-2" />
                                 Header</label>
                         </div>
                     </div>
@@ -95,9 +100,10 @@ const showHeader = ref(true)
             </header>
 
             <main>
-                <VueDevice :device="selectedDevice" :orientation="orientation" :show-btns="showBtns"
-                    :show-home="showHome" :show-sensors="showSensors" :show-stripe="showStripe" :show-power="showPower"
-                    :show-header="showHeader" class="bg-white">
+                <VueDevice :device="selectedDevice" :orientation="orientation"
+                    :showStripe="showStripeOption && showStripe" :showHeader="showHeaderOption && showHeader"
+                    :showSensors="showSensorsOption && showSensors" :showBtns="showBtnsOption && showBtns"
+                    :showPower="showPowerOption && showPower" :showHome="showHomeOption && showHome" class="bg-white">
                     <MMSMessage device="iphone" direction="RECEIVING" message="Did you know about vue-devices? 😻" />
                     <MMSMessage device="iphone" direction="SENDING" message="No, what is it? 🤔" />
                     <MMSMessage device="iphone" direction="RECEIVING"

@@ -1,35 +1,13 @@
 <script lang="ts" setup>
-import { withDefaults } from 'vue';
+import { computed, withDefaults } from 'vue';
+import { deviceOptions, type DeviceType } from './DeviceOptions.ts';
 
 defineOptions({
   inheritAttrs: false
 })
 
-export type DeviceType =
-  | "apple-watch-s8"
-  | "apple-watch-ultra"
-  | "galaxy-s8"
-  | "google-pixel-2-xl"
-  | "google-pixel-6-pro"
-  | "google-pixel"
-  | "homepod"
-  | "imac-pro"
-  | "imac"
-  | "ipad-pro-2017"
-  | "ipad-pro"
-  | "iphone-14-pro"
-  | "iphone-14"
-  | "iphone-8"
-  | "iphone-x"
-  | "macbook-pro-2018"
-  | "macbook-pro"
-  | "macbook"
-  | "pro-display-xdr"
-  | "surface-book"
-  | "surface-pro-2017"
-  | "surface-studio";
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   device?: DeviceType,
   orientation?: 'portrait' | 'landscape',
   color?: string,
@@ -49,6 +27,12 @@ withDefaults(defineProps<{
   showPower: false,
   showHome: false,
 })
+
+const currentDeviceOptions = computed(() => deviceOptions[props.device]);
+
+if (!currentDeviceOptions.value) {
+  console.warn(`Invalid device type "${props.device}". Falling back to default device.`);
+}
 </script>
 
 <template>
