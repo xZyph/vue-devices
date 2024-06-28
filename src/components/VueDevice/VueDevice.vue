@@ -9,7 +9,6 @@ defineOptions({
 
 const props = withDefaults(defineProps<{
   device?: DeviceType,
-  orientation?: 'portrait' | 'landscape',
   color?: string,
   showStripe?: boolean,
   showHeader?: boolean,
@@ -19,13 +18,12 @@ const props = withDefaults(defineProps<{
   showHome?: boolean,
 }>(), {
   device: 'iphone-14-pro',
-  orientation: 'portrait',
-  showStripe: false,
-  showHeader: false,
-  showSensors: false,
-  showBtns: false,
-  showPower: false,
-  showHome: false,
+  showStripe: true,
+  showHeader: true,
+  showSensors: true,
+  showBtns: true,
+  showPower: true,
+  showHome: true,
 })
 
 const currentDeviceOptions = computed(() => deviceOptions[props.device]);
@@ -37,10 +35,10 @@ if (!currentDeviceOptions.value) {
 
 <template>
   <div class="device-container">
-    <div :class="['device', `device-${device}`, `device-${orientation}`]">
+    <div :class="['device', `device-${device}`, `device-${color}`]">
       <div class="device-frame">
         <div class="device-screen">
-          <div v-bind="$attrs">
+          <div class="device-screen-inner" v-bind="$attrs">
             <slot></slot>
           </div>
         </div>
@@ -62,20 +60,30 @@ if (!currentDeviceOptions.value) {
 }
 
 .device-screen {
-  overflow: scroll;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  /* Hide scrollbar for IE, Edge, and Firefox */
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.device-screen-inner {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 
 /* Hide scrollbar for Chrome, Safari, and Opera */
-.device-screen::-webkit-scrollbar {
+.device-screen-inner::-webkit-scrollbar {
   display: none;
 }
 
-.device-container .device-wrapper {
-  position: relative;
+.device-screen-inner {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .device-content {

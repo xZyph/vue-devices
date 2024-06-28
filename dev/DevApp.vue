@@ -2,7 +2,7 @@
 import { computed, ref, watch } from 'vue';
 import VueDevice from '../src/components/VueDevice/VueDevice.vue';
 import { deviceOptions, type DeviceType } from '../src/components/VueDevice/DeviceOptions';
-import MMSMessage from './components/MMSMessage.vue';
+import Message from './components/Message.vue';
 
 const devices = Object.keys(deviceOptions) as DeviceType[];
 
@@ -22,6 +22,8 @@ const showStripeOption = ref(true);
 const showPowerOption = ref(true);
 const showHeaderOption = ref(true);
 
+const selectedColor = ref<string>(deviceOptions[selectedDevice.value].colors[0]);
+
 const deviceConfig = computed(() => deviceOptions[selectedDevice.value]);
 
 watch(selectedDevice, (newValue: DeviceType) => {
@@ -33,86 +35,150 @@ watch(selectedDevice, (newValue: DeviceType) => {
         showStripeOption.value = options.options.includes('showStripe');
         showPowerOption.value = options.options.includes('showPower');
         showHeaderOption.value = options.options.includes('showHeader');
+        selectedColor.value = options.colors[0];
     }
 });
 
 </script>
 
 <template>
-    <div class="bg-background h-full w-full">
-        <div class="grid grid-cols-2 items-center max-w-screen-2xl mx-auto h-screen">
+    <div class="bg-gray-100 dark:bg-background h-full w-full">
+        <div class="grid lg:grid-cols-2 items-center max-w-screen-2xl mx-auto h-screen">
             <header class="m-5">
-                <div class="bg-primary text-white p-5 rounded-xl flex flex-col gap-5">
+                <div class="bg-gray-300 dark:bg-gray-800 dark:text-white p-12 rounded-xl flex flex-col gap-12">
                     <div>
-                        <h1 class="text-4xl">Hello there!</h1>
-                        <h3 class="mt-5 pl-4">
+                        <h1 class="text-5xl">vue-devices <span
+                                class="ml-5 text-slate-400 dark:text-slate-600">v1.2.0</span></h1>
+                        <h3 class="mt-12">
                             <span>vue-devices</span> is a Vue.js component library for displaying various device frames
                             using the <a href="https://devicescss.xyz/" target="_blank" rel="noopener"
-                                class="text-blue-400 hover:underline">DEVICES.CSS</a> library.
+                                class="text-tertiary font-bold hover:underline">DEVICES.CSS</a> library.
                             Ideal for showcasing responsive designs within different device mockups.
                         </h3>
                     </div>
 
                     <div class="flex flex-col gap-3">
                         <h2 class="text-lg">Available devices</h2>
-                        <div class="relative h-10 w-72 min-w-[200px] pl-4">
-                            <select v-model="selectedDevice"
-                                class="h-full w-full rounded-[7px] border border-gray-500 bg-primary px-3 py-2.5 font-sans text-sm font-normal outline-none transition-all focus:border-blue-500">
-                                <option v-for="device in devices" :key="device" :value="device">{{ device }}</option>
+                        <div class="relative h-10 w-full">
+                            <select v-model="selectedDevice" id="device"
+                                class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-tertiary focus:border-tertiary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-tertiary dark:focus:border-tertiary">
+                                <option v-for="device in devices" :key="device" :value="device"
+                                    :selected="device === selectedDevice">{{ device }}</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="flex flex-col gap-3">
-                        <h2 class="text-lg">Orientation</h2>
-                        <div class="flex gap-3 pl-4">
-                            <label class="flex items-center"><input type="radio" v-model="orientation" value="portrait"
-                                    class="mr-2" /> Portrait</label>
-                            <label class="flex items-center"><input type="radio" v-model="orientation" value="landscape"
-                                    class="mr-2" /> Landscape</label>
+                        <h2 class="text-lg">Options</h2>
+                        <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-3">
+
+                            <div v-if="showBtnsOption"
+                                class=" text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <div class="flex items-center ps-3">
+                                    <input id="buttons" type="checkbox" v-model="showBtns"
+                                        class="w-4 h-4 text-tertiary bg-gray-100 border-gray-300 rounded focus:ring-tertiary dark:focus:ring-tertiary dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                    <label for="buttons"
+                                        class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                        Buttons
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div v-if="showHomeOption"
+                                class=" text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <div class="flex items-center ps-3">
+                                    <input id="home" type="checkbox" v-model="showHome"
+                                        class="w-4 h-4 text-tertiary bg-gray-100 border-gray-300 rounded focus:ring-tertiary dark:focus:ring-tertiary dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                    <label for="home"
+                                        class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                        Home
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div v-if="showSensorsOption"
+                                class=" text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <div class="flex items-center ps-3">
+                                    <input id="sensors" type="checkbox" v-model="showSensors"
+                                        class="w-4 h-4 text-tertiary bg-gray-100 border-gray-300 rounded focus:ring-tertiary dark:focus:ring-tertiary dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                    <label for="sensors"
+                                        class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                        Sensors
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div v-if="showStripeOption"
+                                class=" text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <div class="flex items-center ps-3">
+                                    <input id="stripe" type="checkbox" v-model="showStripe"
+                                        class="w-4 h-4 text-tertiary bg-gray-100 border-gray-300 rounded focus:ring-tertiary dark:focus:ring-tertiary dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                    <label for="stripe"
+                                        class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                        Stripe
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div v-if="showPowerOption"
+                                class=" text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <div class="flex items-center ps-3">
+                                    <input id="power" type="checkbox" v-model="showPower"
+                                        class="w-4 h-4 text-tertiary bg-gray-100 border-gray-300 rounded focus:ring-tertiary dark:focus:ring-tertiary dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                    <label for="power"
+                                        class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                        Power
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div v-if="showHeaderOption"
+                                class=" text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <div class="flex items-center ps-3">
+                                    <input id="header" type="checkbox" v-model="showHeader"
+                                        class="w-4 h-4 text-tertiary bg-gray-100 border-gray-300 rounded focus:ring-tertiary dark:focus:ring-tertiary dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                    <label for="header"
+                                        class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                        Header
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <h2 class="text-lg">Available Colors</h2>
+                        <div class="flex gap-2">
+                            <div v-for="color in deviceConfig.colors" :key="color" :style="{ backgroundColor: color }"
+                                class="w-8 h-8 rounded-full cursor-pointer relative"
+                                :class="{ 'border-2 border-black': selectedColor === color }"
+                                @click="selectedColor = color">
+                                <svg v-if="selectedColor === color" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="w-4 h-4 absolute inset-0 m-auto text-white">
+                                    <path d="M20 6L9 17l-5-5" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="flex flex-col gap-3">
-                        <h2 class="text-lg">Options</h2>
-                        <div class="grid grid-cols-3 gap-3 pl-4">
-                            <label v-if="showBtnsOption" class="flex items-center"><input type="checkbox"
-                                    v-model="showBtns" class="mr-2" />
-                                Buttons</label>
-                            <label v-if="showHomeOption" class="flex items-center"><input type="checkbox"
-                                    v-model="showHome" class="mr-2" />
-                                Home</label>
-                            <label v-if="showSensorsOption" class="flex items-center"><input type="checkbox"
-                                    v-model="showSensors" class="mr-2" />
-                                Sensors</label>
-                            <label v-if="showStripeOption" class="flex items-center"><input type="checkbox"
-                                    v-model="showStripe" class="mr-2" />
-                                Stripe</label>
-                            <label v-if="showPowerOption" class="flex items-center"><input type="checkbox"
-                                    v-model="showPower" class="mr-2" />
-                                Power</label>
-                            <label v-if="showHeaderOption" class="flex items-center"><input type="checkbox"
-                                    v-model="showHeader" class="mr-2" />
-                                Header</label>
-                        </div>
-                    </div>
                 </div>
             </header>
 
             <main>
-                <VueDevice :device="selectedDevice" :orientation="orientation"
+                <VueDevice :device="selectedDevice" :orientation="orientation" :color="selectedColor"
                     :showStripe="showStripeOption && showStripe" :showHeader="showHeaderOption && showHeader"
                     :showSensors="showSensorsOption && showSensors" :showBtns="showBtnsOption && showBtns"
                     :showPower="showPowerOption && showPower" :showHome="showHomeOption && showHome" class="bg-white">
-                    <MMSMessage device="iphone" direction="RECEIVING" message="Did you know about vue-devices? 😻" />
-                    <MMSMessage device="iphone" direction="SENDING" message="No, what is it? 🤔" />
-                    <MMSMessage device="iphone" direction="RECEIVING"
+                    <Message device="iphone" direction="RECEIVING" message="Did you know about vue-devices? 😻" />
+                    <Message device="iphone" direction="SENDING" message="No, what is it? 🤔" />
+                    <Message device="iphone" direction="RECEIVING"
                         message="It's just a wrapper component for devices.css created to work with Vue 3. Nothing more, nothing less. 🤷‍♂️" />
-                    <MMSMessage device="iphone" direction="SENDING"
+                    <Message device="iphone" direction="SENDING"
                         message="That's pretty cool. Perfect if I need to display a phone or something on my Vue website. 🔥" />
-                    <MMSMessage device="iphone" direction="RECEIVING"
+                    <Message device="iphone" direction="RECEIVING"
                         message="Absolutely dude! It should be pretty painless to install and use. You just install it, import the VueDevice component, and you're good to go. 🤩" />
-                    <MMSMessage device="iphone" direction="SENDING" message="Thanks! ❤️" />
+                    <Message device="iphone" direction="SENDING" message="Thanks! ❤️" />
                 </VueDevice>
             </main>
         </div>
