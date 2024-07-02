@@ -27,6 +27,7 @@
     "dev": "vite",
     "tsc": "vue-tsc",
     "build": "vite build && vue-tsc",
+    "build:demo": "vite build --mode demo",
     "lint": "eslint .",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,vue,html,css,scss,json,md}\""
   },

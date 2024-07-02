@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 import { resolve } from 'path';
 
-export default defineConfig(({ command }) => {
+export default defineConfig(({ command, mode }) => {
   if (command === 'serve') {
     return {
       plugins: [vue()],
@@ -18,23 +18,40 @@ export default defineConfig(({ command }) => {
     };
   } else {
     // build configuration
+    const isDemo = mode === 'demo';
+    const entrypoint = isDemo ? 'index.html' : 'src/main.ts';
+    const output = isDemo ? 'dist-demo' : 'dist';
+
+    console.log("Entrypoint: ", entrypoint);
+    console.log("Output Directory: ", output);
+
     return {
+      root: '.',
       plugins: [vue(), cssInjectedByJsPlugin()],
       build: {
-        lib: {
-          entry: resolve(__dirname, 'src/main.ts'),
-          name: 'VueDevices',
-          fileName: (format) => `vue-devices.${format}.js`,
-          formats: ['es', 'umd']
-        },
+        outDir: output,
         rollupOptions: {
+          input: resolve(__dirname, entrypoint),
           external: ['vue'],
-          output: {
-            globals: {
-              vue: 'Vue'
+          output: [
+            {
+              format: 'es',
+              entryFileNames: isDemo ? '[name].js' : 'vue-devices.es.js',
+              globals: {
+                vue: 'Vue'
+              },
+              exports: 'named'
             },
-            exports: 'named'
-          }
+            {
+              format: 'umd',
+              entryFileNames: isDemo ? '[name].js' : 'vue-devices.umd.js',
+              globals: {
+                vue: 'Vue'
+              },
+              name: 'VueDevices',
+              exports: 'named'
+            }
+          ]
         }
       }
     };

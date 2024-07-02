@@ -3,33 +3,37 @@ import { computed, withDefaults } from 'vue';
 import { deviceOptions, type DeviceType } from './DeviceOptions.ts';
 
 defineOptions({
-  inheritAttrs: false
-})
+  inheritAttrs: false,
+});
 
-
-const props = withDefaults(defineProps<{
-  device?: DeviceType,
-  color?: string,
-  showStripe?: boolean,
-  showHeader?: boolean,
-  showSensors?: boolean,
-  showBtns?: boolean,
-  showPower?: boolean,
-  showHome?: boolean,
-}>(), {
-  device: 'iphone-14-pro',
-  showStripe: true,
-  showHeader: true,
-  showSensors: true,
-  showBtns: true,
-  showPower: true,
-  showHome: true,
-})
+const props = withDefaults(
+  defineProps<{
+    device?: DeviceType;
+    color?: string;
+    showStripe?: boolean;
+    showHeader?: boolean;
+    showSensors?: boolean;
+    showBtns?: boolean;
+    showPower?: boolean;
+    showHome?: boolean;
+  }>(),
+  {
+    device: 'iphone-14-pro',
+    showStripe: true,
+    showHeader: true,
+    showSensors: true,
+    showBtns: true,
+    showPower: true,
+    showHome: true,
+  }
+);
 
 const currentDeviceOptions = computed(() => deviceOptions[props.device]);
 
 if (!currentDeviceOptions.value) {
-  console.warn(`Invalid device type "${props.device}". Falling back to default device.`);
+  console.warn(
+    `Invalid device type "${props.device}". Falling back to default device.`
+  );
 }
 </script>
 
