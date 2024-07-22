@@ -42,17 +42,17 @@ watch(selectedDevice, (newValue: DeviceType) => {
 </script>
 
 <template>
-    <div class="bg-gray-100 dark:bg-background h-full w-full">
+    <div class="bg-gradient-to-r from-slate-500 to-slate-800 h-full w-full">
         <div class="grid lg:grid-cols-2 items-center max-w-screen-2xl mx-auto h-screen">
             <header class="m-5">
-                <div class="bg-gray-300 dark:bg-gray-800 dark:text-white p-12 rounded-xl flex flex-col gap-12">
+                <div class="bg-gradient-to-r from-rose-700 to-pink-600 text-white p-12 rounded-xl flex flex-col gap-12">
                     <div>
-                        <h1 class="text-5xl">vue-devices <span
-                                class="ml-5 text-slate-400 dark:text-slate-600">v1.2.0</span></h1>
+                        <h1 class="text-5xl font-bold">vue-devices <span
+                                class="ml-5 text-slate-800 tracking-tighter">v1.2.0</span></h1>
                         <h3 class="mt-12">
                             <span>vue-devices</span> is a Vue.js component library for displaying various device frames
                             using the <a href="https://devicescss.xyz/" target="_blank" rel="noopener"
-                                class="text-tertiary font-bold hover:underline">DEVICES.CSS</a> library.
+                                class="bg-gradient-to-r from-cyan-200 to-cyan-400 bg-clip-text text-transparent font-bold hover:underline tracking-tighter">DEVICES.CSS</a> library.
                             Ideal for showcasing responsive designs within different device mockups.
                         </h3>
                     </div>
