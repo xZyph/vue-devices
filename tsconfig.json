@@ -24,6 +24,6 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["vite/client", "node"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/vue-shims.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/vue-shims.d.ts", "demo/**/*.ts", "demo/**/*.tsx", "demo/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
