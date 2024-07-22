@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, withDefaults } from 'vue';
+import { computed } from 'vue';
 import { deviceOptions, type DeviceType } from './DeviceOptions.ts';
 
 defineOptions({
