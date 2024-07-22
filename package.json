@@ -32,10 +32,8 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,vue,html,css,scss,json,md}\""
   },
   "dependencies": {
-    "devices.css": "^0.2.0"
-  },
-  "peerDependencies": {
-    "vue": "^3.0.0"
+    "devices.css": "^0.2.0",
+    "vue": "^3.4.33"
   },
   "devDependencies": {
     "@types/node": "^20.12.13",
