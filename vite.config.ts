@@ -19,6 +19,7 @@ export default defineConfig(({ command, mode }) => {
   } else {
     // build configuration
     const isDemo = mode === 'demo';
+    const isLibrary = mode === 'library'; // New mode for library build
     const entrypoint = isDemo ? 'index.html' : 'src/main.ts';
     const output = isDemo ? 'dist-demo' : 'dist';
 
@@ -32,7 +33,7 @@ export default defineConfig(({ command, mode }) => {
         outDir: output,
         rollupOptions: {
           input: resolve(__dirname, entrypoint),
-          external: ['vue'],
+          external: isLibrary ? ['vue'] : [], // Only exclude vue for library builds
           output: [
             {
               format: 'es',
