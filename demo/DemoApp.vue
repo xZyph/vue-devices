@@ -42,26 +42,30 @@ watch(selectedDevice, (newValue: DeviceType) => {
 </script>
 
 <template>
-    <div class="bg-gradient-to-r from-slate-500 to-slate-800 h-full w-full">
+    <div class="bg-gradient-to-r from-slate-900 to-slate-700 h-full w-full">
         <div class="grid lg:grid-cols-2 items-center max-w-screen-2xl mx-auto h-screen">
             <header class="m-5">
                 <div class="bg-gradient-to-r from-rose-700 to-pink-600 text-white p-12 rounded-xl flex flex-col gap-12">
                     <div>
-                        <h1 class="text-5xl font-bold">vue-devices <span
-                                class="ml-5 text-slate-800 tracking-tighter">v1.2.0</span></h1>
+                        <div class="flex justify-between">
+                            <h1 class="text-5xl font-bold bg-gradient-to-r from-cyan-200 to-cyan-400 bg-clip-text text-transparent font-bold underline tracking-tighter">vue-devices</h1>
+                            <span
+                                class="text-5xl ml-5 bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent tracking-tighter">v1.2.0</span>
+                        </div>
+                        
                         <h3 class="mt-12">
                             <span>vue-devices</span> is a Vue.js component library for displaying various device frames
                             using the <a href="https://devicescss.xyz/" target="_blank" rel="noopener"
-                                class="bg-gradient-to-r from-cyan-200 to-cyan-400 bg-clip-text text-transparent font-bold hover:underline tracking-tighter">DEVICES.CSS</a> library.
+                                class="bg-gradient-to-r from-cyan-200 to-cyan-400 bg-clip-text text-transparent font-bold underline tracking-tighter">DEVICES.CSS</a> library.
                             Ideal for showcasing responsive designs within different device mockups.
                         </h3>
                     </div>
 
                     <div class="flex flex-col gap-3">
-                        <h2 class="text-lg">Available devices</h2>
+                        <h2 class="text-lg font-bold">Available devices</h2>
                         <div class="relative h-10 w-full">
                             <select v-model="selectedDevice" id="device"
-                                class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-tertiary focus:border-tertiary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-tertiary dark:focus:border-tertiary">
+                                class="block w-full px-4 py-3 text-gray-900 rounded-lg bg-gray-700 placeholder-gray-400 text-white">
                                 <option v-for="device in devices" :key="device" :value="device"
                                     :selected="device === selectedDevice">{{ device }}</option>
                             </select>
@@ -69,7 +73,7 @@ watch(selectedDevice, (newValue: DeviceType) => {
                     </div>
 
                     <div class="flex flex-col gap-3">
-                        <h2 class="text-lg">Options</h2>
+                        <h2 class="text-lg font-bold">Options</h2>
                         <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-3">
 
                             <div v-if="showBtnsOption"
@@ -146,16 +150,16 @@ watch(selectedDevice, (newValue: DeviceType) => {
                         </div>
                     </div>
                     <div class="flex flex-col gap-3">
-                        <h2 class="text-lg">Available Colors</h2>
+                        <h2 class="text-lg font-bold">Available Colors</h2>
                         <div class="flex gap-2">
                             <div v-for="color in deviceConfig.colors" :key="color" :style="{ backgroundColor: color }"
-                                class="w-8 h-8 rounded-full cursor-pointer relative"
-                                :class="{ 'border-2 border-black': selectedColor === color }"
+                                class="w-8 h-8 rounded-full cursor-pointer relative border-2"
+                                :class="[ selectedColor === color ? 'border-black' : 'border-white']"
                                 @click="selectedColor = color">
                                 <svg v-if="selectedColor === color" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round"
-                                    class="w-4 h-4 absolute inset-0 m-auto text-white">
+                                    class="w-4 h-4 absolute inset-0 m-auto text-black">
                                     <path d="M20 6L9 17l-5-5" />
                                 </svg>
                             </div>
