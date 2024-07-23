@@ -42,9 +42,9 @@ watch(selectedDevice, (newValue: DeviceType) => {
 </script>
 
 <template>
-    <div class="bg-gradient-to-r from-slate-900 to-slate-700 min-h-screen w-screen p-12">
+    <div class="bg-gradient-to-r from-slate-900 to-slate-700 min-h-screen w-screen p-12 flex justify-center">
         <div class="flex flex-col lg:flex-row items-center gap-12">
-            <header class="m-5">
+            <header class="m-5 max-w-4xl">
                 <div class="bg-gradient-to-r from-rose-700 to-pink-600 text-white p-12 rounded-xl flex flex-col gap-12">
                     <div>
                         <div class="flex justify-between">
