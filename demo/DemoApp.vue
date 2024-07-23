@@ -42,16 +42,12 @@ watch(selectedDevice, (newValue: DeviceType) => {
 </script>
 
 <template>
-    <div class="bg-gradient-to-r from-slate-900 to-slate-700 min-h-screen w-screen p-12 flex justify-center">
-        <div class="flex flex-col lg:flex-row items-center gap-12">
-            <header class="m-5 max-w-4xl">
-                <div class="bg-gradient-to-r from-rose-700 to-pink-600 text-white p-12 rounded-xl flex flex-col gap-12">
+    <div class="bg-gradient-to-r from-slate-900 to-slate-700 min-h-screen w-screen p-2 xl:p-12 flex justify-center">
+        <div class="flex flex-col lg:flex-row items-center gap-4 xl:gap-12">
+            <header class="m-5 max-w-4xl relative">
+                <div class="bg-gradient-to-r from-rose-700 to-pink-600 text-white p-8 xl:p-12 rounded-xl flex flex-col gap-12">
                     <div>
-                        <div class="flex justify-between">
-                            <h1 class="text-5xl font-bold bg-gradient-to-r from-cyan-200 to-cyan-400 bg-clip-text text-transparent font-bold underline tracking-tighter">vue-devices</h1>
-                            <span
-                                class="text-5xl ml-5 bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent tracking-tighter">v1.2.0</span>
-                        </div>
+                        <h1 class="text-5xl font-bold bg-gradient-to-r from-cyan-200 to-cyan-400 bg-clip-text text-transparent font-bold underline tracking-tighter">vue-devices</h1>
                         
                         <h3 class="mt-12">
                             <span>vue-devices</span> is a Vue.js component library for displaying various device frames
@@ -74,7 +70,7 @@ watch(selectedDevice, (newValue: DeviceType) => {
 
                     <div class="flex flex-col gap-3">
                         <h2 class="text-lg font-bold">Options</h2>
-                        <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-3">
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
 
                             <div v-if="showBtnsOption"
                                 class=" text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
@@ -167,6 +163,10 @@ watch(selectedDevice, (newValue: DeviceType) => {
                     </div>
 
                 </div>
+                
+                <div class="ribbon">
+                    <p class="text-3xl ml-5 font-bold tracking-tighter mx-4 text-cyan-200">v1.2.0</p>
+                </div>
             </header>
 
             <main>
@@ -188,3 +188,22 @@ watch(selectedDevice, (newValue: DeviceType) => {
         </div>
     </div>
 </template>
+
+<style lang="css">
+.ribbon {
+  --f: .5em;
+  
+  position: absolute;
+  top: 0;
+  right: 0;
+  line-height: 1.8;
+  padding-inline: 1lh;
+  padding-bottom: var(--f);
+  border-image: conic-gradient(#0008 0 0) 51%/var(--f);
+  clip-path: polygon(
+    100% calc(100% - var(--f)),100% 100%,calc(100% - var(--f)) calc(100% - var(--f)),var(--f) calc(100% - var(--f)), 0 100%,0 calc(100% - var(--f)),999px calc(100% - var(--f) - 999px),calc(100% - 999px) calc(100% - var(--f) - 999px));
+  transform: translate(calc((1 - cos(45deg))*100%), -100%) rotate(45deg);
+  transform-origin: 0% 100%;
+  background-color: #BD1550;
+}
+</style>
